@@ -1,20 +1,5 @@
-const rp = require("request-promise");
-
-const authUrl = "https://url.to.auth.system.com/invitation";
-const statusCreated = 201;
-const statusSuccess = 200;
-const statusBadRequest = 400;
-const statusNotFound = 404;
-const statusInternalError = 500;
-const emptyJson = [];
-const User = null; // @TODO: Implement
-const Shop = null; // @TODO: Implement
-
-const makeRespond = res => status => body => {
-  res.status(status).json(body);
-};
-
-const invite = (req, res) => {
+const invite = props => (req, res) => {
+  const { makeRespond, userModel, shopModel } = props;
   // @TODO: Reconstruct body so we don't send unwanted keys.
   const invitationBody = req.body;
   const { email } = req.body;
@@ -22,11 +7,11 @@ const invite = (req, res) => {
 
   const respond = makeRespond(res);
 
-  rp({
-    method: "POST",
-    uri: authUrl,
-    body: invitationBody
-  })
+  // rp({
+  //   method: "POST",
+  //   uri: authUrl,
+  //   body: invitationBody
+  // })
     .then(invitationResponse => {
       const { authId, invitationId } = invitationResponse.body;
       const { status } = invitationResponse;

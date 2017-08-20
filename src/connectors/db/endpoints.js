@@ -8,6 +8,6 @@ const ShopMongooseModel = mongoose.model("Shop", shopSchema);
 const UserMongooseModel = mongoose.model("User", userSchema);
 
 module.exports = () => ({
-  Shop: () => ShopMongooseModel,
-  User: () => UserMongooseModel
+  shop: () => ShopMongooseModel,
+  user: () => UserMongooseModel
 });

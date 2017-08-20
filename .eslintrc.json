@@ -1,6 +1,6 @@
 {
-    "extends": [
-        "oneflow",
-        "prettier"
-    ]
+  "extends": ["oneflow", "prettier"],
+  "env": {
+    "jest": true
+  }
 }

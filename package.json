@@ -4,10 +4,16 @@
   "main": "index.js",
   "author": "Marcus Nielsen <marcus.nielsen82@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "start": "node server/index.js"
+  },
   "dependencies": {
     "eslint": "^4.5.0",
     "eslint-config-oneflow": "^1.0.2",
     "eslint-config-prettier": "^2.3.0",
+    "express": "^4.15.4",
+    "jest": "^20.0.4",
     "mongoose": "^4.11.7",
     "prettier": "^1.5.3",
     "request-promise": "^4.2.1",
