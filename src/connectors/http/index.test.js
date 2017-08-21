@@ -1,22 +1,30 @@
-// @TODO: Continue here.
-// @TODO: Include body in calls, and return a proper mock response.
-const { toTest } = require("./index");
-const service = require("./mock-service");
+// Note: functional test and unit test overlap so much right now, we don't need the unit test.
+// it will make more sense if we add more units.
 
-const { makeCreateUserInvitation, make } = toTest;
+const { toTest, mockService: service } = require("./index");
 
-test("makeCreateUserInvitation", () => {
-  const createUserInvitation = makeCreateUserInvitation(service);
+const { makeCreateInvitation, make } = toTest;
 
-  return createUserInvitation().then(result => {
-    expect(result.data).toEqual([]);
+test("makeCreateInvitation", () => {
+  const body = { email: "mock@example.com", shopId: "mock-shop-id" };
+  const createInvitation = makeCreateInvitation(service);
+
+  return createInvitation(body).then(result => {
+    expect(result).toEqual({
+      data: { authId: "auth-id-mock", invitationId: "invitation-id-mock" },
+      mockBody: { email: "mock@example.com", shopId: "mock-shop-id" }
+    });
   });
 });
 
 test("make", () => {
+  const body = { email: "mock@example.com", shopId: "mock-shop-id" };
   const httpConnector = make({ service: service });
 
-  return httpConnector.user.createUserInvitation().then(result => {
-    expect(result.data).toEqual([]);
+  return httpConnector.user.createInvitation(body).then(result => {
+    expect(result).toEqual({
+      data: { authId: "auth-id-mock", invitationId: "invitation-id-mock" },
+      mockBody: { email: "mock@example.com", shopId: "mock-shop-id" }
+    });
   });
 });

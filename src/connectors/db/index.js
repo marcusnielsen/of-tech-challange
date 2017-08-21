@@ -1,14 +1,30 @@
-const mongoose = require("mongoose");
-const endpoints = require("./endpoints");
+const dbService = require("./db-service");
 
-// @TODO: Implement
-const create = endpoint => body => {};
+const makeCreate = effect => makeEndpoint => methods => query => body =>
+  effect({ method: methods.create, endpoint: makeEndpoint(query), body: body });
 
-module.exports = () => {
-  // @TODO: connection string.
-  mongoose.connect();
+const makeCreateUser = service => query => body =>
+  makeCreate(service.effect)(service.methods)(service.endpoints.user)(query)(
+    body
+  );
+
+const make = ({ service }) => {
+  const createUser = makeCreateUser(service);
+
+  const user = { createUser: createUser };
+
   return {
-    create: create,
-    endpoints: endpoints
+    user: user
   };
+};
+
+const toTest = {
+  makeCreateUser: makeCreateUser,
+  make: make
+};
+
+module.exports = {
+  make: make,
+  dbService: dbService,
+  toTest: toTest
 };

@@ -2,8 +2,7 @@ const invite = props => (req, res) => {
   const { makeRespond, userModel, shopModel } = props;
   // @TODO: Reconstruct body so we don't send unwanted keys.
   const invitationBody = req.body;
-  const { email } = req.body;
-  const { shopId } = req.params;
+  const { email, shopId } = req.body;
 
   const respond = makeRespond(res);
 

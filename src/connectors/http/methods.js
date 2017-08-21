@@ -1,6 +1,6 @@
 module.exports = {
-  create: "CREATE",
+  create: "POST",
   read: "GET",
-  update: "UPDATE",
+  update: "PUT",
   remove: "DELETE"
 };

@@ -1,16 +1,17 @@
 const httpService = require("./http-service");
-// @TODO: Create mock service
+const mockService = require("./mock-service");
+const methods = require("./methods");
 
 const makeCreate = effect => endpoint => body =>
-  effect({ method: "POST", endpoint: endpoint, body: body });
+  effect({ method: methods.create, endpoint: endpoint, body: body });
 
-const makeCreateUserInvitation = service => body =>
+const makeCreateInvitation = service => body =>
   makeCreate(service.effect)(service.endpoints.user.invitation())(body);
 
 const make = ({ service }) => {
-  const createUserInvitation = makeCreateUserInvitation(service);
+  const createInvitation = makeCreateInvitation(service);
 
-  const user = { createUserInvitation: createUserInvitation };
+  const user = { createInvitation: createInvitation };
 
   return {
     user: user
@@ -18,12 +19,13 @@ const make = ({ service }) => {
 };
 
 const toTest = {
-  makeCreateUserInvitation: makeCreateUserInvitation,
+  makeCreateInvitation: makeCreateInvitation,
   make: make
 };
 
 module.exports = {
   make: make,
   httpService: httpService,
+  mockService: mockService,
   toTest: toTest
 };
