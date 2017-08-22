@@ -7,7 +7,7 @@ const { makeCreateInvitation, make } = toTest;
 
 test("makeCreateInvitation", () => {
   const body = { email: "mock@example.com", shopId: "mock-shop-id" };
-  const createInvitation = makeCreateInvitation(service);
+  const createInvitation = makeCreateInvitation(service());
 
   return createInvitation(body).then(result => {
     expect(result).toEqual({
@@ -19,7 +19,7 @@ test("makeCreateInvitation", () => {
 
 test("make", () => {
   const body = { email: "mock@example.com", shopId: "mock-shop-id" };
-  const httpConnector = make({ service: service });
+  const httpConnector = make({ service: service() });
 
   return httpConnector.user.createInvitation(body).then(result => {
     expect(result).toEqual({

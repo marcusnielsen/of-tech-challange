@@ -13,11 +13,35 @@ test("makeCreateUser", () => {
   const createUser = makeCreateUser(service);
 
   return createUser(query)(body).then(result => {
-    // @TODO: Set real expectations, and update endpoint.
     expect(result).toEqual({
-      body: { authId: "authId", email: "email" },
-      method: "create",
-      query: { authId: "authId" }
+      _id: "fake-id",
+      toTest: {
+        body: { authId: "authId", email: "email" },
+        method: "create",
+        query: { authId: "authId" }
+      }
+    });
+  });
+});
+
+test("make", () => {
+  const service = makeService();
+  const connector = make({ service: service });
+
+  const query = { authId: "authId" };
+  const body = {
+    authId: "authId",
+    email: "email"
+  };
+
+  connector.user.create(query)(body).then(result => {
+    expect(result).toEqual({
+      _id: "fake-id",
+      toTest: {
+        body: { authId: "authId", email: "email" },
+        method: "create",
+        query: { authId: "authId" }
+      }
     });
   });
 });

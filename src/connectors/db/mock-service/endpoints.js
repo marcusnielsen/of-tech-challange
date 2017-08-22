@@ -1,4 +1,7 @@
 module.exports = {
   user: query => method => body =>
-    Object.assign({}, { body: body, query: query, method: method })
+    Object.assign(
+      {},
+      { _id: "fake-id", toTest: { body: body, query: query, method: method } }
+    )
 };

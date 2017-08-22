@@ -9,7 +9,7 @@ const effect = ({ method, endpoint, body }) => {
   });
 };
 
-module.exports = {
+module.exports = () => ({
   effect: effect,
   endpoints: endpoints
-};
+});
