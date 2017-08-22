@@ -4,10 +4,12 @@ const mongoose = require("mongoose");
 const shopSchema = { name: String };
 const userSchema = { authId: String, invitationId: String };
 
-const ShopMongooseModel = mongoose.model("Shop", shopSchema);
-const UserMongooseModel = mongoose.model("User", userSchema);
+module.exports = () => {
+  const ShopMongooseModel = mongoose.model("Shop", shopSchema);
+  const UserMongooseModel = mongoose.model("User", userSchema);
 
-module.exports = () => ({
-  shop: query => ({ model: ShopMongooseModel, query: query }),
-  user: query => ({ model: UserMongooseModel, query: query })
-});
+  return {
+    shop: query => ({ model: ShopMongooseModel, query: query }),
+    user: query => ({ model: UserMongooseModel, query: query })
+  };
+};

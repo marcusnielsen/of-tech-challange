@@ -1,16 +1,16 @@
 const dbService = require("./db-service");
+const mockService = require("./mock-service");
 
-const makeCreate = effect => makeEndpoint => methods => query => body =>
-  effect({ method: methods.create, endpoint: makeEndpoint(query), body: body });
+const makeCreate = effect => endpoint => methods => query => body =>
+  effect({ method: methods.create, endpoint: endpoint(query), body: body });
 
-// query => body => Promise
 const makeCreateUser = service =>
-  makeCreate(service.effect)(service.methods)(service.endpoints.user);
+  makeCreate(service.effect)(service.endpoints.user)(service.methods);
 
 const make = ({ service }) => {
   const createUser = makeCreateUser(service);
 
-  const user = { createUser: createUser };
+  const user = { create: createUser };
 
   return {
     user: user
@@ -25,5 +25,6 @@ const toTest = {
 module.exports = {
   make: make,
   dbService: dbService,
+  mockService: mockService,
   toTest: toTest
 };
